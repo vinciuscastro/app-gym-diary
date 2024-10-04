@@ -40,7 +40,15 @@ class AuthService {
     return null;
   }
 
-  Future<void> signOut() async {
+  Future<void> logout() async {
     await _auth.signOut();
+  }
+
+  Future<void> saveUser(String name) async {
+    await _auth.currentUser!.updateDisplayName(name);
+  }
+
+  bool isLogged() {
+    return _auth.currentUser != null;
   }
 }

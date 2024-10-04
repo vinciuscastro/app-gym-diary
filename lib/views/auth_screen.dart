@@ -3,6 +3,8 @@ import 'package:app_gym_yt/components/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
+
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -39,7 +41,7 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     SizedBox(height: MediaQuery.of(context).size.height * 0.08), // 10% of the screen height
                     Image.asset('assets/logo.png', height: 100),
-                    const Text("Gym Daily",
+                    const Text("Gym Diary",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30, color: Colors.white)),
 
@@ -98,7 +100,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         } else if (value.length < 6) {
                           return 'Senha deve ter no mínimo 6 caracteres';
                         }
-
+                        return null;
                       },
                       decoration: const InputDecoration(
                         labelText: 'Senha',
@@ -124,7 +126,7 @@ class _AuthScreenState extends State<AuthScreen> {
                             return 'Senha deve ter no mínimo 6 caracteres';
                           } else if (value != passwordController.text) {
                             return 'Senhas não conferem';
-                          }
+                          } return null;
                         },
                         decoration: const InputDecoration(
                           labelText: 'Confirmar Senha',
@@ -148,16 +150,23 @@ class _AuthScreenState extends State<AuthScreen> {
                           if (_isLogin) {
                             AuthService().signIn(emailController.text, passwordController.text).then((value) {
                               if (value != null) {
-                                customSnackBar(context: context, message: 'Login efetuado com sucesso', Error: false);
+                                Navigator.pushReplacementNamed(context, '/home');
                               } else {
-                                customSnackBar(context: context, message: 'Erro ao fazer login');
+                                customSnackBar(context: context, message: 'Usuário ou senha inválidos');
                               }
                             });
 
                           } else {
                             AuthService().register(emailController.text, passwordController.text).then((value) {
                               if (value != null) {
-                                customSnackBar(context: context, message: 'Cadastro efetuado com sucesso', Error: false);
+                                customSnackBar(context: context, message: 'Cadastro efetuado com sucesso', error: false);
+                                AuthService().saveUser(nameController.text);
+                                setState(() {
+                                  _isLogin = !_isLogin;
+                                  emailController.clear();
+                                  passwordController.clear();
+                                  nameController.clear();
+                                });
                               } else {
                                 customSnackBar(context: context, message: 'Erro ao fazer cadastro');
                               }
