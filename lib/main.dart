@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
         ),
         home: const IsLogged(),
         routes: {
-          '/home': (context) => HomeScreen(),
-          '/auth': (context) => AuthScreen(),
+          '/home': (context) => const HomeScreen(),
+          '/auth': (context) => const AuthScreen(),
         }
     );
   }
@@ -52,7 +52,7 @@ class IsLogged extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (AuthService().isLogged()) {
-      return HomeScreen();
+      return const HomeScreen();
     } else {
       return const AuthScreen();
     }
