@@ -53,7 +53,7 @@ class ExerciseItem extends StatelessWidget {
         color: Colors.grey[200],
         child: ListTile(
           contentPadding: const EdgeInsets.all(16),
-          title: Flexible(child: Text(exercise.name)),
+          title: Text(exercise.name),
           subtitle: Text(exercise.description),
           trailing: IconButton(
             icon: const Icon(Icons.edit),
