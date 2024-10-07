@@ -1,16 +1,35 @@
-# app_gym_yt
+# app_gym_daily
 
-A new Flutter project.
+É um aplicativo móvel desenvolvido em Flutter, voltado para ajudar os usuários a manterem um diário de treinos. O objetivo é facilitar o controle de atividades físicas, oferecendo uma experiência simples e intuitiva para o gerenciamento de exercícios e treinos.
 
-## Getting Started
+## Funcionalidades
+- [x] Cadastro de exercícios: o usuário pode cadastrar seus exercícios, informando o nome, categoria e descrição.
+- [x] Listagem de exercícios: o usuário pode visualizar todos os exercícios cadastrados, com informações como nome, categoria e descrição.
+- [ ] Criação de treinos: o usuário pode criar treinos personalizados, selecionando os exercícios desejados e definindo a quantidade de séries e repetições.
+- [ ] Acompanhamento de treinos: o aplicativo permite ao usuário acompanhar a execução dos treinos, registrando as séries e repetições realizadas.
 
-This project is a starting point for a Flutter application.
+## Tecnologias
+- Flutter
+- Dart
+- Firebase
 
-A few resources to get you started if this is your first Flutter project:
+## Instalação
+1. Clone o repositório
+```bash
+git clone https://github.com/vinciuscastro/app-gym-diary
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Acesse a pasta do projeto
+```bash
+cd app-gym-diary
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Instale as dependências
+```bash
+flutter pub get
+```
+
+4. Execute o projeto
+```bash
+flutter run
+```
