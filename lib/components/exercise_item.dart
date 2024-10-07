@@ -1,4 +1,4 @@
-import 'package:app_gym_yt/components/home_modal.dart';
+import 'package:app_gym_yt/components/modal/home_modal.dart';
 import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/services/exercise_service.dart';
 import 'package:app_gym_yt/views/exercise_screen.dart';

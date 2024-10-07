@@ -1,8 +1,6 @@
 import 'dart:io';
-
 import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/services/exercise_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -91,11 +89,11 @@ class _ExerciseImageState extends State<ExerciseImage> {
       child: Stack(
         children: [
           Center(
-            child: _imageFile == null // Verifica se a imagem foi selecionada
+            child: _imageFile == null
                 ? (widget.exercise.image == null
                 ? const Icon(Icons.image_not_supported, size: 30)
                 : Image.network(widget.exercise.image!))
-                : Image.file(File(_imageFile!.path)), // Exibe a imagem selecionada
+                : Image.file(File(_imageFile!.path)),
           ),
           Positioned(
             bottom: 10,

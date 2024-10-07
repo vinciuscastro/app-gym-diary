@@ -1,6 +1,6 @@
 import 'package:app_gym_yt/components/app_drawer.dart';
 import 'package:app_gym_yt/components/exercise_item.dart';
-import 'package:app_gym_yt/components/home_modal.dart';
+import 'package:app_gym_yt/components/modal/home_modal.dart';
 import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/services/exercise_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

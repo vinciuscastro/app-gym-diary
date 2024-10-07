@@ -1,5 +1,5 @@
 import 'package:app_gym_yt/components/exercise_image.dart';
-import 'package:app_gym_yt/components/feeling_modal.dart';
+import 'package:app_gym_yt/components/modal/feeling_modal.dart';
 import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/services/auth_service.dart';
 import 'package:app_gym_yt/services/feeling_service.dart';
@@ -11,6 +11,33 @@ class ExerciseScreen extends StatelessWidget {
   ExerciseScreen({super.key, required this.exercise});
 
   final _service = FeelingService();
+
+  void showDeleteDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Atenção'),
+          content: const Text('Deseja realmente excluir o exercício?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Não'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context, true);
+              },
+              child: const Text('Sim'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
   @override
@@ -25,15 +52,6 @@ class ExerciseScreen extends StatelessWidget {
               Text(exercise.description, style: const TextStyle(fontSize: 14)),
             ],
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.logout),
-              onPressed: () {
-                AuthService().logout();
-                Navigator.pushReplacementNamed(context, '/auth');
-              },
-            ),
-          ],
           toolbarHeight: 70),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -79,35 +97,39 @@ class ExerciseScreen extends StatelessWidget {
                 );
               }
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: feelings.map((feeling) {
-                  return ListTile(
-                    title: Text(feeling.feeling),
-                    subtitle: Text(DateFormat('dd/MM/yyyy').format(DateTime.parse(feeling.date))),
-                    contentPadding: const EdgeInsets.all(0),
-                    leading: const Icon(Icons.double_arrow_rounded),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.edit),
-                          onPressed: () {
-                            showFeelingModal(context, exercise.id, feeling: feeling);
-                          },
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: feelings.map((feeling) {
+                      return ListTile(
+                        title: Text(feeling.feeling),
+                        subtitle: Text(DateFormat('dd/MM/yyyy').format(DateTime.parse(feeling.date))),
+                        contentPadding: const EdgeInsets.all(0),
+                        leading: const Icon(Icons.double_arrow_rounded),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                showFeelingModal(context, exercise.id, feeling: feeling);
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                _service.deleteFeeling(exercise.id, feeling.id);
+                              },
+                            ),
+                          ],
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.delete),
-                          onPressed: () {
-
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
+                      );
+                    }).toList(),
+                  ),
+                ],
               );
             }),
-
+            const SizedBox(height: 60),
           ],
         ),
       ),
