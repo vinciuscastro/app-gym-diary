@@ -1,8 +1,8 @@
+import 'package:app_gym_yt/components/custom_form_field.dart';
 import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/models/feeling.dart';
 import 'package:app_gym_yt/services/exercise_service.dart';
 import 'package:flutter/material.dart';
-
 
 showHomeModal(BuildContext context, {Exercise? exercise}) {
   showModalBottomSheet(
@@ -17,6 +17,7 @@ showHomeModal(BuildContext context, {Exercise? exercise}) {
 
 class ExerciseForms extends StatefulWidget {
   final Exercise? exercise;
+
   const ExerciseForms({super.key, this.exercise});
 
   @override
@@ -43,10 +44,11 @@ class _ExerciseFormsState extends State<ExerciseForms> {
     }
   }
 
-
-  void addNewExercise (){
+  void addNewExercise() {
     setState(() => isLoading = true);
-    final id = widget.exercise == null ? DateTime.now().toString() : widget.exercise!.id;
+    final id = widget.exercise == null
+        ? DateTime.now().toString()
+        : widget.exercise!.id;
     Exercise exercise = Exercise(
       id: id,
       name: nameController.text,
@@ -68,12 +70,18 @@ class _ExerciseFormsState extends State<ExerciseForms> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
       padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+      ),
       child: Form(
         key: formKey,
         child: Column(
@@ -81,7 +89,11 @@ class _ExerciseFormsState extends State<ExerciseForms> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.exercise == null ? 'Adicionar Exercício' : 'Editar Exercício', style: TextStyle(fontSize: 20)),
+                Text(
+                    widget.exercise == null
+                        ? 'Adicionar Exercício'
+                        : 'Editar Exercício',
+                    style: const TextStyle(fontSize: 20, color: Colors.white)),
                 IconButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -91,48 +103,23 @@ class _ExerciseFormsState extends State<ExerciseForms> {
               ],
             ),
             const SizedBox(height: 20),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Nome do Exercício'),
-              controller: nameController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Campo obrigatório';
-                }
-              },
-            ),
+            CustomFormField(controller: nameController, label: "Nome"),
             const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Treino'),
-              controller: descriptionController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Campo obrigatório';
-                }
-              },
-            ),
+            CustomFormField(controller: descriptionController, label: "Treino"),
             const SizedBox(height: 10),
-            TextFormField(
-              decoration: const InputDecoration(labelText: 'Passo a passo'),
-              controller: anotationController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Campo obrigatório';
-                }
-              },
-            ),
+            CustomFormField(
+                controller: anotationController, label: "Passo a passo"),
             Visibility(
               visible: widget.exercise == null,
               child: Column(
                 children: [
                   const SizedBox(height: 10),
-                  TextFormField(
-                    decoration: const InputDecoration(labelText: 'Observações (opcional)'),
-                    controller: feelingController,
-                  ),
+                  CustomFormField(
+                      controller: feelingController,
+                      label: "Observações (opcional)", isRequired: false),
                 ],
               ),
             ),
-
             const Spacer(),
             ElevatedButton(
               onPressed: () {
@@ -141,7 +128,7 @@ class _ExerciseFormsState extends State<ExerciseForms> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.grey[800],
                 foregroundColor: Colors.white,
                 fixedSize: const Size(double.infinity, 50),
                 minimumSize: const Size(double.infinity, 50),

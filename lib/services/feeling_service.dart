@@ -1,4 +1,3 @@
-import 'package:app_gym_yt/models/exercise.dart';
 import 'package:app_gym_yt/models/feeling.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

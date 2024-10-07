@@ -1,7 +1,6 @@
 import 'package:app_gym_yt/components/exercise_image.dart';
 import 'package:app_gym_yt/components/modal/feeling_modal.dart';
 import 'package:app_gym_yt/models/exercise.dart';
-import 'package:app_gym_yt/services/auth_service.dart';
 import 'package:app_gym_yt/services/feeling_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
